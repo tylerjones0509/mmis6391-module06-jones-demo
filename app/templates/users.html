@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Manage Users</h1>
+
+    <!-- Filter Form -->
+    <form method="GET" action="{{ url_for('user_info.users') }}" class="mb-4">
+        <div class="form-row">
+            <div class="col">
+                <input type="text" class="form-control" name="username" placeholder="Filter by Username">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" name="email" placeholder="Filter by Email">
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-secondary">Filter</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- Form to add a new user -->
+    <form method="POST" action="{{ url_for('user_info.users') }}" class="mb-4">
+        <div class="form-row">
+            <div class="col">
+                <input type="text" class="form-control" name="username" placeholder="Username" required>
+            </div>
+            <div class="col">
+                <input type="email" class="form-control" name="email" placeholder="Email" required>
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" name="preferred_categories" placeholder="Preferred Categories">
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-primary">Add User</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- Table to display all users -->
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">User ID</th>
+                <th scope="col">Username</th>
+                <th scope="col">Email</th>
+                <th scope="col">Preferred Categories</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in all_users %}
+            <tr>
+                <td>{{ user['user_id'] }}</td> <!-- Accessing dictionary key for user_id -->
+                <td>{{ user['username'] }}</td> <!-- Accessing dictionary key for username -->
+                <td>{{ user['email'] }}</td> <!-- Accessing dictionary key for email -->
+                <td>{{ user['preferred_categories'] }}</td> <!-- Accessing dictionary key for preferred_categories -->
+                <td>
+                    <!-- Update button -->
+                    <a href="{{ url_for('user_info.update_user', user_id=user['user_id']) }}" class="btn btn-warning btn-sm">Update</a>
+
+                    <!-- Delete button -->
+                    <form action="{{ url_for('user_info.delete_user', user_id=user['user_id']) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this user?');">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
+

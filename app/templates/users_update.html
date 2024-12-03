@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Update/Delete User</h1>
+
+    <!-- Update User Form -->
+    <form method="POST" action="{{ url_for('user_info.update_user', user_id=current_user_data['user_id']) }}">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" name="username" value="{{ current_user_data['username'] }}" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" value="{{ current_user_data['email'] }}" required>
+        </div>
+        <div class="form-group">
+            <label for="preferred_categories">Preferred Categories</label>
+            <input type="text" class="form-control" id="preferred_categories" name="preferred_categories" value="{{ current_user_data['preferred_categories'] }}">
+        </div>
+        <div class="form-group">
+            <label for="password_hash">Password Hash</label>
+            <input type="text" class="form-control" id="password_hash" name="password_hash" value="{{ current_user_data['password_hash'] }}" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Update User</button>
+        <a href="{{ url_for('user_info.users') }}" class="btn btn-secondary">Cancel</a>
+    </form>
+
+    <!-- Delete User Form -->
+    <form action="{{ url_for('user_info.delete_user', user_id=current_user_data['user_id']) }}" method="POST" class="mt-4">
+        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?');">Delete User</button>
+    </form>
+</div>
+
+{% endblock %}

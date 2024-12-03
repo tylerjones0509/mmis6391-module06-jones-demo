@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Update/Delete Event</h1>
+
+    <!-- Update Event Form -->
+    <form method="POST" action="{{ url_for('event_info.update_event', event_id=current_event_info['event_id']) }}">
+        <div class="form-group">
+            <label for="event_name">Event Name</label>
+            <input type="text" class="form-control" id="event_name" name="event_name" value="{{ current_event_info['event_name'] }}" required>
+        </div>
+        <div class="form-group">
+            <label for="category">Category</label>
+            <input type="text" class="form-control" id="category" name="category" value="{{ current_event_info['category'] }}" required>
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="3" required>{{ current_event_info['description'] }}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="event_date">Event Date</label>
+            <input type="date" class="form-control" id="event_date" name="event_date" value="{{ current_event_info['date'] }}" required>
+        </div>
+        <div class="form-group">
+            <label for="event_time">Event Time</label>
+            <input type="time" class="form-control" id="event_time" name="event_time" value="{{ current_event_info['time'] }}" required>
+        </div>
+        <div class="form-group">
+            <label for="location">Location</label>
+            <input type="text" class="form-control" id="location" name="location" value="{{ current_event_info['location'] }}" required>
+        </div>
+        <div class="form-group">
+            <label for="max_attendees">Max Attendees</label>
+            <input type="number" class="form-control" id="max_attendees" name="max_attendees" value="{{ current_event_info['max_attendees'] }}" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Update Event</button>
+        <a href="{{ url_for('event_info.events') }}" class="btn btn-secondary">Cancel</a>
+    </form>
+
+    <!-- Delete Event Form -->
+    <form action="{{ url_for('event_info.delete_event', event_id=current_event_info['event_id']) }}" method="POST" class="mt-4">
+        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this event?');">Delete Event</button>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1 class="text-center">Welcome to Modern Events Co.</h1>
+<br>
+<p class="lead text-center">
+    At Modern Events Co., we specialize in turning your event ideas into reality. From vibrant celebrations to professional gatherings, our team is here to make your experience seamless, creative, and unforgettable.
+</p>
+
+<hr>
+
+<h2 class="mt-5">What We Offer</h2>
+<div class="row">
+    <div class="col-md-6">
+        <h3 class="text-primary">Effortless Event Sign-Up</h3>
+        <p>Reserve your spot for exciting events in just a few clicks, making the process quick and hassle-free.</p>
+    </div>
+    <div class="col-md-6">
+        <h3 class="text-primary">Tailored Recommendations</h3>
+        <p>Discover events designed to match your preferences and interests for a truly personalized experience.</p>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <h3 class="text-primary">Interactive Event Map</h3>
+        <p>Explore nearby events easily with our dynamic Google Maps integration, helping you find the perfect fit.</p>
+    </div>
+    <div class="col-md-6">
+        <h3 class="text-primary">Event Reminders</h3>
+        <p>Stay in the loop with timely notifications, ensuring you never miss an opportunity to connect and celebrate.</p>
+    </div>
+</div>
+
+<hr>
+
+<h2 class="mt-5">Get Started Today</h2>
+<p>
+    Whether you're looking to attend a captivating workshop, connect at a social gathering, or plan your next milestone event, Modern Events Co. is your trusted partner. Let us help you create lasting memories. Browse our events, sign up, and let the fun begin!
+</p>
+<a href="{{ url_for('event_info.events') }}" class="btn btn-primary btn-lg mt-3">Explore Events</a>
+
+{% endblock %}
+

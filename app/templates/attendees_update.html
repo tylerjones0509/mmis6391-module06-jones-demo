@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Update/Delete Attendee</h1>
+
+    <!-- Update Attendee Form -->
+    <form method="POST" action="{{ url_for('attendee_info.update_attendee', attendee_id=current_attendee_info['attendee_id']) }}">
+        <div class="form-group">
+            <label for="user_id">User ID</label>
+            <input
+                type="number"
+                class="form-control"
+                id="user_id"
+                name="user_id"
+                value="{{ current_attendee_info['user_id'] }}"
+                required
+                readonly>
+        </div>
+        <div class="form-group">
+            <label for="event_id">Event ID</label>
+            <input
+                type="number"
+                class="form-control"
+                id="event_id"
+                name="event_id"
+                value="{{ current_attendee_info['event_id'] }}"
+                required>
+        </div>
+        <div class="form-group">
+            <label for="rsvp_date">RSVP Date</label>
+            <input
+                type="date"
+                class="form-control"
+                id="rsvp_date"
+                name="rsvp_date"
+                value="{{ current_attendee_info['rsvp_date'] }}"
+                required>
+        </div>
+        <div class="form-group">
+            <label for="status">Status</label>
+            <select
+                class="form-control"
+                id="status"
+                name="status"
+                required>
+                <option value="Confirmed" {% if current_attendee_info['status'] == 'Confirmed' %}selected{% endif %}>Confirmed</option>
+                <option value="Pending" {% if current_attendee_info['status'] == 'Pending' %}selected{% endif %}>Pending</option>
+                <option value="Cancelled" {% if current_attendee_info['status'] == 'Cancelled' %}selected{% endif %}>Cancelled</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Update Attendee</button>
+        <a href="{{ url_for('attendee_info.attendees') }}" class="btn btn-secondary">Cancel</a>
+    </form>
+
+    <!-- Delete Attendee Form -->
+    <form action="{{ url_for('attendee_info.delete_attendee', attendee_id=current_attendee_info['attendee_id']) }}" method="POST" class="mt-4">
+        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this attendee?');">Delete Attendee</button>
+    </form>
+</div>
+{% endblock %}

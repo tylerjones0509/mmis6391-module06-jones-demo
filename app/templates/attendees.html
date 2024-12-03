@@ -1,0 +1,70 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Manage Attendees</h1>
+
+    <!-- Form to add a new attendee -->
+    <form method="POST" action="{{ url_for('attendee_info.attendees') }}" class="mb-4">
+        <div class="form-row">
+            <div class="col">
+                <input type="number" class="form-control" name="user_id" placeholder="User ID" required>
+            </div>
+            <div class="col">
+                <input type="number" class="form-control" name="event_id" placeholder="Event ID" required>
+            </div>
+            <div class="col">
+                <input type="date" class="form-control" name="rsvp_date" placeholder="RSVP Date" required>
+            </div>
+            <div class="col">
+                <select class="form-control" name="status" required>
+                    <option value="" disabled selected>Status</option>
+                    <option value="Confirmed">Confirmed</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Cancelled">Cancelled</option>
+                </select>
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-primary">Add Attendee</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- Table to display all attendees -->
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Attendee ID</th>
+                <th scope="col">User ID</th>
+                <th scope="col">Event ID</th>
+                <th scope="col">RSVP Date</th>
+                <th scope="col">Status</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for attendee in all_attendees %}
+            <tr>
+                <td>{{ attendee.attendee_id }}</td>
+                <td>{{ attendee.user_id }}</td>
+                <td>{{ attendee.event_id }}</td>
+                <td>{{ attendee.rsvp_date }}</td>
+                <td>{{ attendee.status }}</td>
+                <td>
+                    <!-- Update button -->
+                    <a href="{{ url_for('attendee_info.update_attendee', attendee_id=attendee.attendee_id) }}" class="btn btn-warning btn-sm">Update</a>
+
+                    <!-- Delete button -->
+                    <form action="{{ url_for('attendee_info.delete_attendee', attendee_id=attendee.attendee_id) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this attendee?');">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
